@@ -135,6 +135,17 @@ public function getCost()
     $body = json_decode($response->getBody(), true); 
     return $this->response->setJSON($body['data']);
 }
+public function updateStatus($id)
+{
+$status = $this->request->getPost('status');
+if ($this->transaction->updateStatus($id, $status)) {
+return redirect()->back()->with('success', 'Status transaksi berhasil 
+diperbarui.');
+} else {
+return redirect()->back()->with('error', 'Gagal memperbarui status 
+transaksi.');
+}
+}
 public function buy()
 {
     if ($this->request->getPost()) { 
